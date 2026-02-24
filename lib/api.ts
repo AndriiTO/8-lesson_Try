@@ -78,10 +78,10 @@ export type Category = {
   updatedAt: string;
 };
 
-  export const getCategories = async () => {
-    const res = await instance.get<Category[]>('/categories');
-    return res.data;
-  };
+  // export const getCategories = async () => {
+  //   const res = await instance.get<Category[]>('/categories');
+  //   return res.data;
+  // };
 
 
 export const getSingleNote = async (id: string) => {

@@ -25,12 +25,12 @@ import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 
 export const metadata: Metadata = {
   title: "Notes ",
-  description: "This part does not mean changing on all pages in the notes.",
+  description: "Place for your notes",
   openGraph: {
-    title: "Note",
+    title: "Notes",
     description:
       "NoteHub",
-    url: "https://notehub.com/notes/${id}",
+    url: "https://notehub.com",
     images: [
       {
         url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
