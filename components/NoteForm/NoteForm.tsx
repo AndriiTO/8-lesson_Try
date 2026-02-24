@@ -53,11 +53,17 @@ const { draft = initialValues, setDraft, clearDraft } = useNoteDraftStore();
     },
   });
 
-  const handleSubmit = (formData: FormData) => {
-    const values = Object.fromEntries(formData) as NewNoteData;
-    mutate(values);
-  };
+  // const handleSubmit = (formData: FormData) => {
+  //   const values = Object.fromEntries(formData) as NewNoteData;
+  //   mutate(values);
+  // };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();  
+  const formData = new FormData(event.currentTarget);
+  const values = Object.fromEntries(formData) as NewNoteData;
+  mutate(values);
+};
   
   const handleCancel = () => router.push('/notes/filter/all');
 
