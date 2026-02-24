@@ -1,12 +1,12 @@
-import { create } from 'zustand';
+import { create, StoreApi, UseBoundStore } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { NewNoteData } from '../api';
 
-// const NoteDraftStore = {
-//   draft: NewNoteData;
-//   setDraft: (note: NewNoteData) => void;
-//   clearDraft: () => void;
-// };
+const NoteDraftStore = {
+  draft: NewNoteData;
+  setDraft: (note: NewNoteData) => void;
+  clearDraft: () => void;
+};
 
 export type Draft = {
   title: string;
@@ -26,6 +26,19 @@ interface NoteStore {
   setDraft: (note: Partial<Draft>) => void;
   clearDraft: () => void;
 }
+interface NoteDraftState {
+  title: string;
+  content: string;
+  setTitle: (title: string) => void;
+  setContent: (content: string) => void;
+}
+
+export const useNoteDraftStore: UseBoundStore<StoreApi<NoteDraftState>> = create<NoteDraftState>((set) => ({
+  title: '',
+  content: '',
+  setTitle: (title) => set({ title }),
+  setContent: (content) => set({ content }),
+}));
 
 export const useNoteStore = create<NoteStore>()(
   persist(
