@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import * as Yup from 'yup';
+// import * as Yup from 'yup';
 import { createNote, NewNoteData } from '@/lib/api';
 import { useNoteDraftStore } from '@/lib/store/noteStore';
 import type { NoteTag } from '@/types/note';
@@ -47,16 +47,16 @@ export default function NoteForm() {
 
   const handleCancel = () => router.push('/notes/filter/all');
 
-    const validationSchema = Yup.object({
-    title: Yup.string()
-      .min(3, 'Title must be at least 3 characters')
-      .max(50, 'Title cannot exceed 50 characters')
-      .required('Title is required'),
-    content: Yup.string().max(500, 'Content cannot exceed 500 characters'),
-    tag: Yup.mixed<NoteTag>()
-      .oneOf(['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'])
-      .required('Tag is required'),
-  });
+  //   const validationSchema = Yup.object({
+  //   title: Yup.string()
+  //     .min(3, 'Title must be at least 3 characters')
+  //     .max(50, 'Title cannot exceed 50 characters')
+  //     .required('Title is required'),
+  //   content: Yup.string().max(500, 'Content cannot exceed 500 characters'),
+  //   tag: Yup.mixed<NoteTag>()
+  //     .oneOf(['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'])
+  //     .required('Tag is required'),
+  // });
 
   return (
     <form onSubmit={handleSubmit} className={css.form}>
