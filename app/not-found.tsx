@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "Page Not Found",
     description:
       "This page does not exist or you do not have access",
-    url: "https://notehub.com/notes/${id}",
+    url: "https://notehub.com/notes/filter/all",
     images: [
       {
         url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
