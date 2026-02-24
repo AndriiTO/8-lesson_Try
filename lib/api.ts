@@ -48,7 +48,7 @@ export type NewNoteData = {
 };
 
 export const createNote = async (data: NewNoteData) => {
-  const res = await axios.post<Note>('/notes', data);
+  const res = await instance.post<Note>('/notes', data);
   return res.data;
 };
 
