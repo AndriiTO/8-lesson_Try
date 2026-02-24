@@ -1,15 +1,19 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 // import * as Yup from 'yup';
 import { createNote, NewNoteData } from '@/lib/api';
 import { useNoteDraftStore } from '@/lib/store/noteStore';
 import type { NoteTag } from '@/types/note';
 import css from './NoteForm.module.css';
+import React from 'react';
+
+
 
 export default function NoteForm() {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const initialValues = {
     title: '',
@@ -33,17 +37,26 @@ export default function NoteForm() {
   const { mutate } = useMutation({
     mutationFn: createNote,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notes'] });
       clearDraft();
       router.push('/notes/filter/all');
     },
   });
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const values = Object.fromEntries(formData) as NewNoteData;
-    mutate(values);
-  };
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault(); // обов'язково
+  const formData = new FormData(event.currentTarget);
+  const values = Object.fromEntries(formData) as NewNoteData;
+  mutate(values);
+};
+  
+
+  //  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(event.currentTarget);
+  //   const values = Object.fromEntries(formData) as NewNoteData;
+  //   mutate(values);
+  // };
 
   const handleCancel = () => router.push('/notes/filter/all');
 
@@ -77,7 +90,7 @@ export default function NoteForm() {
         <label htmlFor="content">Content</label>
         <textarea
           id="content"
-          name="content"
+          name="content"  
           rows={6}
           className={css.textarea}
           value={draft?.content || ''}
