@@ -16,6 +16,24 @@ const instance = axios.create({
   },
 });
 
+// export const fetchNotes = async ({
+//   page,
+//   perPage,
+//   search,
+//   tag,
+// }: {
+//   page: number;
+//   perPage?: number;
+//   search?: string;
+//   tag?:Tag | string;
+// }): Promise<FetchNotesResponse> => {
+//     const res = await instance.get<FetchNotesResponse>("/notes", {
+//       params: { page, perPage, search, ...(tag !== "all"&& {tag}) },
+//     });
+
+//   const data: FetchNotesResponse = res.data;
+//   return data;
+// };
 export const fetchNotes = async ({
   page,
   perPage,
@@ -25,14 +43,21 @@ export const fetchNotes = async ({
   page: number;
   perPage?: number;
   search?: string;
-  tag?:Tag | string;
+  tag?: Tag | string;
 }): Promise<FetchNotesResponse> => {
+
   const res = await instance.get<FetchNotesResponse>("/notes", {
-    params: { page, perPage, search, ...(tag !== "all"&& {tag}) },
+    params: {
+      page,
+      perPage,
+      // додаємо search тільки якщо він НЕ порожній
+      ...(search ? { search } : {}),
+      // додаємо tag тільки якщо він НЕ "all"
+      ...(tag && tag !== "all" ? { tag } : {}),
+    },
   });
 
-  const data: FetchNotesResponse = res.data;
-  return data;
+  return res.data;
 };
 
 export const fetchNoteById = async (id: string): Promise<Note> => {

@@ -21,10 +21,11 @@ interface NotesClientProps {
 
 const NotesClient = ({ tag }: NotesClientProps) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(tag !== "all" ? tag : "");
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
+  
   
 const { data, isLoading, error } = useQuery<FetchNotesResponse>({
   queryKey: ["notes", currentPage, debouncedSearchQuery, tag],
